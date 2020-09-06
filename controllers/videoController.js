@@ -10,7 +10,7 @@ export const search = (req, res) => {
   } = req;
 
   //   res.render("search", { pageTitle: "Search", searchingBy: searchingBy }); 똑같음!
-  res.render("search", { pageTitle: "Search", searchingBy });
+  res.render("search", { pageTitle: "Search", searchingBy, videos });
 };
 // export const videos = (req, res) =>
 //   res.render("videos", { pageTitle: "Videos" }); 삭제
