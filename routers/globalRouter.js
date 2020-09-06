@@ -9,6 +9,6 @@ globalRouter.get(routes.home, home);
 globalRouter.get(routes.search, search);
 globalRouter.get(routes.join, join);
 globalRouter.get(routes.login, login);
-globalRouter.get(routes.logout, logout);
+// globalRouter.get(routes.logout, logout); 삭제
 
 export default globalRouter;

@@ -8,8 +8,8 @@ export const search = (req, res) => {
   //   res.render("search", { pageTitle: "Search", searchingBy: searchingBy }); 똑같음!
   res.render("search", { pageTitle: "Search", searchingBy });
 };
-export const videos = (req, res) =>
-  res.render("videos", { pageTitle: "Videos" });
+// export const videos = (req, res) =>
+//   res.render("videos", { pageTitle: "Videos" }); 삭제
 export const upload = (req, res) =>
   res.render("upload", { pageTitle: "Upload" });
 export const videoDetail = (req, res) =>
