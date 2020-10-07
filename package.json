@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev:server": "nodemon --exec babel-node init.js --delay 2",
-    "dev:assets": "cross-env WEBPACK_ENV=development webpack",
+    "dev:assets": "cross-env WEBPACK_ENV=development webpack -w",
     "build:assets": "cross-env WEBPACK_ENV=production webpack"
   },
   "author": "ki",
@@ -13,8 +13,10 @@
   "dependencies": {
     "@babel/core": "^7.11.4",
     "@babel/node": "^7.10.5",
+    "@babel/polyfill": "^7.11.5",
     "@babel/preset-env": "^7.11.0",
     "autoprefixer": "^10.0.1",
+    "babel-loader": "^8.1.0",
     "body-parser": "^1.19.0",
     "caniuse-lite": "^1.0.30001143",
     "cookie-parser": "^1.4.5",
