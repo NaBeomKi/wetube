@@ -42,7 +42,7 @@ export const githubLoginCallback = async (
   cb
 ) => {
   const {
-    _json: { id, avatar_url, name, email },
+    _json: { id, avatar_url: avatarUrl, name, email },
   } = profile;
   // const { value: email } = profile.emails.filter((item) => item.primary)[0];
   // https://github.com/jaredhanson/passport-github/issues/15
@@ -50,6 +50,8 @@ export const githubLoginCallback = async (
     const user = await User.findOne({ email });
     if (user) {
       user.githubId = id;
+      user.avatarUrl = avatarUrl;
+      user.name = name;
       user.save();
       return cb(null, user);
     }
@@ -57,7 +59,7 @@ export const githubLoginCallback = async (
       email,
       name,
       githubId: id,
-      avatarUrl: avatar_url,
+      avatarUrl,
     });
     return cb(null, newUser);
   } catch (error) {
@@ -73,6 +75,11 @@ export const logout = (req, res) => {
   req.logout();
   res.redirect(routes.home);
 };
+
+export const getMe = (req, res) => {
+  res.render("userDetail", { pageTitle: "User Detail", user: req.user });
+};
+
 export const userDetail = (req, res) =>
   res.render("userDetail", { pageTitle: "User Detail" });
 export const editProfile = (req, res) =>
