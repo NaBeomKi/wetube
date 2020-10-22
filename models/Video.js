@@ -24,6 +24,10 @@ const VideoSchema = new mongoose.Schema({
       ref: "Comment",
     },
   ], //모든 Comment ID를 Array로 Video에 집어넣는 방법1
+  creator: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
 });
 
 const model = mongoose.model("Video", VideoSchema);
