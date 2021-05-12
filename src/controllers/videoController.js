@@ -29,10 +29,22 @@ export const postEdit = (req, res) => {
 export const search = (req, res) => res.send("Search");
 export const getUpload = (req, res) =>
   res.render("uploadVideo", { pageTitle: "Upload Video" });
-export const postUpload = (req, res) => {
+export const postUpload = async (req, res) => {
   const {
-    body: { title },
+    body: { title, description, hashtags },
   } = req;
-  return res.redirect("/");
+  try {
+    await Video.create({
+      title,
+      description,
+      hashtags: hashtags.split(",").map((word) => `#${word}`),
+    });
+    return res.redirect("/");
+  } catch (error) {
+    return res.render("uploadVideo", {
+      pageTitle: "Upload Video",
+      errorMessage: error._message,
+    });
+  }
 };
 export const deleteVideo = (req, res) => res.send("Delete Video");
