@@ -31,6 +31,7 @@ export const postJoin = async (req, res) => {
     });
     return res.redirect("/login");
   } catch (error) {
+    console.log(error);
     res.status(400).render("join", {
       pageTitle,
       errorMessage: error._message,
@@ -146,7 +147,32 @@ export const getEdit = (req, res) => {
   return res.render("editProfile", { pageTitle: "Edit Profile" });
 };
 
-export const postEdit = (req, res) => {
-  return res.redirect("/");
+export const postEdit = async (req, res) => {
+  const {
+    session: {
+      user: { _id },
+    },
+    body: { name, email, username, location },
+  } = req;
+
+  const exsitsUser = await User.findOne({ $or: [{ username }, { email }] });
+  if (exsitsUser && exsitsUser._id !== _id) {
+    return res.status(400).render("editProfile", {
+      pageTitle: "Edit Profile",
+      errorMessage: `This username/email is already taken.`,
+    });
+  }
+  const updateUser = await User.findByIdAndUpdate(
+    _id,
+    {
+      name,
+      email,
+      username,
+      location,
+    },
+    { new: true }
+  );
+  req.session.user = updateUser;
+  return res.redirect("/users/edit");
 };
 export const see = (req, res) => res.send("See User");
