@@ -155,8 +155,12 @@ export const postEdit = async (req, res) => {
     body: { name, email, username, location },
   } = req;
 
-  const exsitsUser = await User.findOne({ $or: [{ username }, { email }] });
-  if (exsitsUser && exsitsUser._id != _id) {
+  const exsitsUsername = await User.findOne({ username });
+  const exsitsEmail = await User.findOne({ email });
+  if (
+    (exsitsUsername && exsitsUsername._id != _id) ||
+    (exsitsEmail && exsitsEmail._id != _id)
+  ) {
     return res.status(400).render("editProfile", {
       pageTitle: "Edit Profile",
       errorMessage: `This username/email is already taken.`,
