@@ -1,3 +1,5 @@
+import fetch from "node-fetch";
+
 const video = document.querySelector("video");
 const playBtn = document.getElementById("play");
 const playBtnIcon = playBtn.querySelector("i");
@@ -85,6 +87,7 @@ const handleFullScreen = () => {
 };
 
 const hideControls = () => {
+  videoContainer.style.cursor = "none";
   videoControls.classList.remove("showing");
 };
 
@@ -97,6 +100,7 @@ const handleMouseMove = () => {
     clearTimeout(controlsMovementTimeout);
     controlsMovementTimeout = null;
   }
+  videoContainer.style.cursor = "default";
   videoControls.classList.add("showing");
   controlsMovementTimeout = setTimeout(hideControls, 3000);
 };
@@ -105,11 +109,21 @@ const handleMouseLeave = () => {
   controlsTimeout = setTimeout(hideControls, 3000);
 };
 
+const handleEnded = () => {
+  const {
+    dataset: { id },
+  } = videoContainer;
+  fetch(`/api/videos/${id}/view`, {
+    method: "POST",
+  });
+};
+
 playBtn.addEventListener("click", handlePlayClick);
 muteBtn.addEventListener("click", handleMute);
 volumeRange.addEventListener("input", handleVolumeChange);
-video.addEventListener("loadeddata", handleLoadedMetadata);
+video.addEventListener("loadedmetadata", handleLoadedMetadata);
 video.addEventListener("timeupdate", handleTimeUpdate);
+video.addEventListener("ended", handleEnded);
 timeline.addEventListener("input", handleTimelineChange);
 fullScreenBtn.addEventListener("click", handleFullScreen);
 videoContainer.addEventListener("mousemove", handleMouseMove);
