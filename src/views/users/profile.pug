@@ -6,7 +6,7 @@ block content
         if !user.avatarUrl
             div(style="background-image: url(https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=889&q=80); background-size:cover; background-position:center").avatar
         else
-            img(src=user.avatarUrl.includes("https") ? user.avatarUrl : `/${user.avatarUrl}`).avatar
+            img(src=user.avatarUrl).avatar
         h3=user.name
     div.video-grid
         each video in user.videos
