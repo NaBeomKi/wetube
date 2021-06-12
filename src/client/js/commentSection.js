@@ -16,7 +16,6 @@ const handleDelete = async (event) => {
 };
 
 const addComment = (text, id) => {
-  // const videoComments = document.querySelector(".video__comments ul");
   const newComment = document.createElement("li");
   newComment.className = "video__comment";
   newComment.dataset.id = id;
@@ -24,9 +23,8 @@ const addComment = (text, id) => {
   icon.className = "fas fa-comment";
   const span = document.createElement("span");
   span.innerText = ` ${text}`;
-  const delBtn = document.createElement("span");
-  delBtn.innerText = "❌";
-  delBtn.className = "delBtn";
+  const delBtn = document.createElement("i");
+  delBtn.className = "far fa-trash-alt delBtn";
   delBtn.addEventListener("click", handleDelete);
   newComment.append(icon, span, delBtn);
   videoComments.prepend(newComment);

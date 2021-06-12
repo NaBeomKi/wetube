@@ -10,7 +10,8 @@ form {
 }
 
 input:not(input[type="range"]),
-input[type="submit"] {
+input[type="submit"],
+textarea {
   all: unset;
   padding: 15px 20px;
   border-radius: 5px;
